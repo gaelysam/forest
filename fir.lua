@@ -2,7 +2,7 @@ function fir_growing(pos)
 	local height = math.random(5,13)
 		-- build the trunk
 	for dy = 0, height do
-		minetest.env:set_node({x = pos.x, y = pos.y + dy, z = pos.z}, {name = "forest:fir_tree"})
+		minetest.set_node({x = pos.x, y = pos.y + dy, z = pos.z}, {name = "forest:fir_tree"})
 	end
 	local steps = math.floor(height * 0.75 + 2.25)
 	local dist = 0
@@ -17,8 +17,8 @@ function fir_growing(pos)
 				pos.y = pos.y + height + 3 - dy
 				pos.z = pos.z + dz
 					-- for each cell we will get 60% chance to have leaves
-				if (minetest.env:get_node(pos).name == "air" or minetest.env:get_node(pos).name == "ignore") and math.random(1, 5) <= 3 then
-					minetest.env:set_node(pos, {name = "forest:fir_leaves"})
+				if (minetest.get_node(pos).name == "air" or minetest.get_node(pos).name == "ignore") and math.random(1, 5) <= 3 then
+					minetest.set_node(pos, {name = "forest:fir_leaves"})
 				end
 				pos.x = pos.x - dx
 				pos.y = pos.y - height - 3 + dy
@@ -26,7 +26,9 @@ function fir_growing(pos)
 			end
 		end
 	end
-	if minetest.get_node({x = pos.x, y = pos.y + height + 2, z = pos.z}).name == "forest:fir_leaves" and minetest.get_node({x = pos.x, y = pos.y + height + 1, z = pos.z}).name == "air" then
+		-- if the leaves node at the top is floating, put another leaves node under
+	local node_top = minetest.get_node({x = pos.x, y = pos.y + height + 1, z = pos.z}).name
+	if minetest.get_node({x = pos.x, y = pos.y + height + 2, z = pos.z}).name == "forest:fir_leaves" and (node_top == "air" or node_top == "ignore") then
 		minetest.set_node({x = pos.x, y = pos.y + height + 1, z = pos.z}, {name = "forest:fir_leaves"})
 	end
 end
