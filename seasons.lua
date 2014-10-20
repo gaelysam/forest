@@ -38,7 +38,6 @@ register_season("flowers:dandelion_white", {
 	start = 2.90,
 	stop = 4.60,
 	speed = 15,
-	new_node = {name = "flowers:dandelion_yellow"},
 })
 
 register_season("flowers:dandelion_yellow", {
@@ -46,6 +45,7 @@ register_season("flowers:dandelion_yellow", {
 	start = 4.00,
 	stop = 8.00,
 	speed = 5,
+	new_node = {name = "flowers:dandelion_yellow"},
 })
 
 register_season("flowers:geranium", {
